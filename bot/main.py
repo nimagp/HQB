@@ -6,12 +6,18 @@ from live import alive
 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-bot = commands.Bot(command_prefix="!")
+bot = commands.Bot(command_prefix="hq.")
+help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",description="""
 
+""")
+#template: :fire::question:`command` : توضیحات
 
 @bot.event
 async def on_ready():
-    print(f"Logged in as {bot.user.name}({bot.user.id})")
+    channel = bot.get_channel(870624299877277716)
+    embed=discord.Embed(title=f"ربات روشن شد!", description="هم اکنون میتوانید از ربات استفاده کنید", color=0x00ff00)
+    await channel.send(embed=embed)
+    print(f"Logged in as {bot.user.name}({bot.user.id}")
 
 @bot.command()
 async def ping(ctx):
