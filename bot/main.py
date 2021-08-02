@@ -6,11 +6,16 @@ from live import alive
 
 
 TOKEN = os.getenv("DISCORD_TOKEN")
-bot = commands.Bot(command_prefix="hq.")
+bot = commands.Bot(command_prefix="hqb.")
+bot.remove_command("help")
 help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",description="""
+***تمامی دستورات با ***`.hqb`*** آغاز می شوند***
 
-""")
-#template: :fire::question:`command` : توضیحات
+:fire::question:`add` : پیشنهاد سوال \n========
+:fire::question:`bug` : گزارش باگ \n========
+:fire::question:`help` : نمایش راهنما \n========
+""", color=0xffffff)
+#template: :fire::question:`command` : توضیحات \n========
 
 @bot.event
 async def on_ready():
@@ -18,6 +23,15 @@ async def on_ready():
     embed=discord.Embed(title=f"ربات روشن شد!", description="هم اکنون میتوانید از ربات استفاده کنید", color=0x00ff00)
     await channel.send(embed=embed)
     print(f"Logged in as {bot.user.name}({bot.user.id}")
+
+# گاو#لحمق
+#خر
+#نکن
+
+@bot.command(name="help",help="نمایش راهنما",aliases=["h","راهنما"])
+async def help(ctx):
+    await ctx.reply(embed=help_embed)
+
 
 @bot.command()
 async def ping(ctx):
