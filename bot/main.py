@@ -27,6 +27,7 @@ async def on_ready():
     channel = bot.get_channel(870624299877277716)
     embed=discord.Embed(title=f"ربات روشن شد!", description="هم اکنون میتوانید از ربات استفاده کنید", color=0x00ff00)
     await channel.send(embed=embed)
+    await bot.change_presence(activity=discord.Activity(type=discord.ActivityType.listening, name="hqb.help"))
     print(f"Logged in as {bot.user.name}({bot.user.id}")
 
 
@@ -61,10 +62,11 @@ async def add(ctx, *, question):
 async def question(ctx):
     def check(msg):
         return msg.channel == ctx.channel and msg.author == ctx.author
+        
 
     qmsg = await ctx.send("لورم  ایپسوم")
     try:
-        msg = await bot.wait_for("message", check=check, timeout=10)
+        msg = await bot.wait_for("message", check=check, timeout=30)
         await qmsg.edit(content=f'{qmsg.content}\nجواب {msg.author.mention}:\n{msg.content}')
     except asyncio.TimeoutError:
         await ctx.send("جواب نمیدی پلشت؟ با دمپایی ابری هلیکوپتری بیام دهنت؟")
