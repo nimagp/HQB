@@ -22,6 +22,12 @@ help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",descr
 """, color=0xffffff)
 #template: :fire::question:`command` : توضیحات \n========
 
+
+
+
+
+
+
 @bot.event
 async def on_ready():
     channel = bot.get_channel(870624299877277716)
