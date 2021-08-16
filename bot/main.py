@@ -63,7 +63,7 @@ async def bug(ctx, *, message):
 
 @bot.command(help="پیشنهاد سوال")
 async def question(ctx, *, question):
-    channel = bot.get_channel(870559120476999690)
+    channel = bot.get_channel(876910149363716176)
     embed = discord.Embed(title=f"سوال جدید از {ctx.message.author.name}", description=question, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("سوال پیشنهادی شما برای بررسی ارسال شد")
