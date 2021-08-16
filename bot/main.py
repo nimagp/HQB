@@ -73,14 +73,14 @@ async def pack(ctx):
     def check(msg):
         return msg.channel == ctx.channel and msg.author == ctx.author
         
-  question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-  if question_pack.status_code == 404:
-    requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
     question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-  elif question_pack.status_code == 456:
-    embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
-    await ctx.send(embed=embed)
-    return 0
+    if question_pack.status_code == 404:
+      requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
+      question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
+    elif question_pack.status_code == 456:
+      embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
+      await ctx.send(embed=embed)
+      return 0
     packmsg = await ctx.send("سوالات:")
     for i in range(1,6):
       try:
