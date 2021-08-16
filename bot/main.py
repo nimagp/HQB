@@ -56,7 +56,7 @@ async def ping(ctx):
 
 @bot.command(name="bug", help="گزارش باگ به ادمین ها")
 async def bug(ctx, *, message):
-    channel = bot.get_channel(870551794273644565)
+    channel = bot.get_channel(876910072402423910)
     embed=discord.Embed(title=f"ّباگ جدید از {ctx.message.author.name}", description=message, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("باگ گزارش شد")
@@ -75,7 +75,7 @@ async def pack(ctx):
         
 
     packmsg = await ctx.send("سوالات:")
-    for i in range(1,6):
+    for i in range(5):
       try:
         msg = await bot.wait_for("message", check=check, timeout=30)
         await packmsg.edit(content=packmsg.content+f"\n{msg.content}")
@@ -84,7 +84,7 @@ async def pack(ctx):
           embed=discord.Embed(title="خطا", description="داااااداش جواب بده تو می خواستی پک پیشنهاد بدی :(", color=0xFF0000)
           await ctx.send(embed=embed)
           return 0
-    channel = bot.get_channel(870559120476999690)
+    channel=bot.get_channel(876910149363716176)    
     embed = discord.Embed(title=f"پک سوال جدید از {ctx.message.author.name}", description=packmsg.content, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("پک سوال پیشنهادی شما ارسال شد")
@@ -133,6 +133,8 @@ async def start(ctx):
       embed=discord.Embed(title=f"سوال {j}:", description=question_pack.json()['ok'][f"{j}"], color=0x00ff00)
       await ctx.send(embed=embed)
       j+=1
+      if j == 6:
+          break
       for p in peaples:
         now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
@@ -144,8 +146,7 @@ async def start(ctx):
         except asyncio.TimeoutError:
           embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
           await ctx.send(embed=embed)
-        if j == 6:
-          break
+        
   await ctx.send("عه دیگه سوال نیست:sweat_smile:\nبه پایان رسید این دفتر ولی ضایع شدن ها همچنان باقیست... :upside_down_face:")
 
 
