@@ -127,14 +127,12 @@ async def start(ctx):
     i+=1
   embed=discord.Embed(title="نام پک:", description=question_pack.json()['ok']["title"], color=0x00ff00)
   await ctx.send(embed=embed)
-  i=1
+  j=1
   for q in questions:
-    for z in range(1,6):
-      embed=discord.Embed(title=f"سوال {i}:", description=question_pack.json()['ok'][f"{i}"], color=0x00ff00)
+    for i in range(1,6):
+      embed=discord.Embed(title=f"سوال {j}:", description=question_pack.json()['ok'][f"{j}"], color=0x00ff00)
       await ctx.send(embed=embed)
-      i+=1
-      if i == 6:
-        break
+      j+=1
       for p in peaples:
         now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
@@ -144,10 +142,10 @@ async def start(ctx):
           await ctx.send(embed=embed)
           await msg.delete()
         except asyncio.TimeoutError:
-            embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
-            await ctx.send(embed=embed)
-      if i == 6:
-        break
+          embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
+          await ctx.send(embed=embed)
+        if j == 6:
+          break
   await ctx.send("عه دیگه سوال نیست:sweat_smile:\nبه پایان رسید این دفتر ولی ضایع شدن ها همچنان باقیست... :upside_down_face:")
 
 
