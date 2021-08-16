@@ -132,8 +132,7 @@ async def start(ctx):
     for z in range(1,6):
       embed=discord.Embed(title=f"سوال {i}:", description=question_pack.json()['ok'][f"{i}"], color=0x00ff00)
       await ctx.send(embed=embed)
-      if not i == 5:
-        i+=1
+      i+=1
       for p in peaples:
         now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
@@ -145,7 +144,10 @@ async def start(ctx):
         except asyncio.TimeoutError:
             embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
             await ctx.send(embed=embed)
-    await ctx.send("عه دیگه سوال نیست:sweat_smile:\nبه پایان رسید این دفتر ولی ضایع شدن ها همچنان باقیست... :upside_down_face:")
+      if i == 6:
+        break
+  await ctx.send("عه دیگه سوال نیست:sweat_smile:\nبه پایان رسید این دفتر ولی ضایع شدن ها همچنان باقیست... :upside_down_face:")
+
 
 
 
