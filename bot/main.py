@@ -73,14 +73,7 @@ async def pack(ctx):
     def check(msg):
         return msg.channel == ctx.channel and msg.author == ctx.author
         
-    question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-    if question_pack.status_code == 404:
-      requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
-      question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-    elif question_pack.status_code == 456:
-      embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
-      await ctx.send(embed=embed)
-      return 0
+
     packmsg = await ctx.send("سوالات:")
     for i in range(1,6):
       try:
@@ -96,11 +89,19 @@ async def pack(ctx):
     await channel.send(embed=embed)
     await ctx.reply("پک سوال پیشنهادی شما ارسال شد")
 @bot.command()
-async def setup(ctx):
+async def start(ctx):
   def check(msg):
         return msg.channel == ctx.channel and msg.author == ctx.author
   def check_answer(msg):
     return msg.channel == ctx.channel and msg.author.mention == now_peaple
+  question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
+  if question_pack.status_code == 404:
+    requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
+    question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
+  elif question_pack.status_code == 456:
+    embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
+    await ctx.send(embed=embed)
+    return 0
   await ctx.send("بگو ببینم کیا بازی می کنن؟ :thinking: (هرکدوم رو تو یه پیام جدا منشن کن وقتی هم تموم شدن یه پیام بفرست بنویس کافیه)")
   global now_peaple
   peaples=[ctx.message.author.mention]
@@ -117,6 +118,7 @@ async def setup(ctx):
         embed=discord.Embed(title="خطا", description="من منتظر جواب توئم :zipper_mouth_face:\nولش کنسل می کنم(برو گمشو بی معرفت :confused: )", color=0xFF0000)
         await ctx.send(embed=embed)
         return 0
+
 
   questions=[]
   i=1
