@@ -111,10 +111,10 @@ async def setup(ctx):
         await ctx.send(embed=embed)
         return 0
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-  if question_pack.status == 404:
+  if question_pack.status_code == 404:
     requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
     question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
-  elif question_pack.status == 456:
+  elif question_pack.status_code == 456:
     embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
     await ctx.send(embed=embed)
     return 0
