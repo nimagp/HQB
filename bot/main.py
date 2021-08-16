@@ -133,6 +133,8 @@ async def start(ctx):
       embed=discord.Embed(title=f"سوال {i}:", description=question_pack.json()['ok'][f"{i}"], color=0x00ff00)
       await ctx.send(embed=embed)
       i+=1
+      if i == 6:
+        break
       for p in peaples:
         now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
