@@ -122,19 +122,17 @@ async def start(ctx):
 
   questions=[]
   i=1
-  for z in range(1,6):
+  for z in range(5):
     questions.append(question_pack.json()['ok'][f"{i}"])
     i+=1
   embed=discord.Embed(title="نام پک:", description=question_pack.json()['ok']["title"], color=0x00ff00)
   await ctx.send(embed=embed)
   j=1
   for q in questions:
-    for i in range(1,6):
+    for i in range(5):
       embed=discord.Embed(title=f"سوال {j}:", description=question_pack.json()['ok'][f"{j}"], color=0x00ff00)
       await ctx.send(embed=embed)
       j+=1
-      if j == 6:
-          break
       for p in peaples:
         now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
