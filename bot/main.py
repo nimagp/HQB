@@ -4,6 +4,8 @@ from discord.ext import commands
 from live import alive
 import asyncio
 import requests
+players={}
+questions={}
 TOKEN = os.getenv("DISCORD_TOKEN")
 bot = commands.Bot(command_prefix="hqb.")
 bot.remove_command("help")
@@ -88,54 +90,91 @@ async def pack(ctx):
     embed = discord.Embed(title=f"پک سوال جدید از {ctx.message.author.name}", description=packmsg.content, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("پک سوال پیشنهادی شما ارسال شد")
+
+
 @bot.command()
-async def start(ctx):
-  def check(msg):
-        return msg.channel == ctx.channel and msg.author == ctx.author
-  def check_answer(msg):
-    return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
+async def join(ctx):
+  #define server party if there not is
+  if not ctx.guild.id in players:
+    players[ctx.guild.id]=[]
+  #add player to party
+  players[ctx.guild.id].append(ctx.message.author.mention)
+  #send successful
+  embed=discord.Embed(title="خوش اومدی", description="با امید عدم به هم خوردن رفاقت شما :upside_down_face:", color=0x00ff00)
+  embed.set_image(url="https://i.ytimg.com/vi/pNNN31IB1wE/maxresdefault.jpg")
+  await ctx.send(embed=embed)
+
+@bot.command()
+async def leave(ctx):
+  try:
+    players[ctx.guild.id].remove(ctx.message.author.mention)
+    embed=discord.Embed(title="خداحافظ", description="بر میگردی دیگه نه؟ به قیافه مظلوم من نگاه کن بگو دلت میاد برنگردی؟ :pleading_face:", color=0x00ff00) 
+    embed.set_image(url="https://excitedcats.com/wp-content/uploads/2021/01/cat-cute.png")
+    await ctx.send(embed=embed)
+  except:
+    embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای لیو بدی؟ :neutral_face:", color=0xFF0000)
+    embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
+    await ctx.send(embed=embed)
+@bot.command()
+async def party(ctx):
+  if not ctx.guild.id in players:
+    players[ctx.guild.id]=[]
+    embed=discord.Embed(title="هیچکس نیست", description="مانده ایم تنهای تنها:", color=0xFF0000)
+    embed.set_image(url="https://memegenerator.net/img/instances/72390221/were-all-alone-theres-no-one-here.jpg")
+    await ctx.send(embed=embed)
+  if not players[ctx.guild.id]:
+    embed=discord.Embed(title="هیچکس نیست", description="مانده ایم تنهای تنها:", color=0xFF0000)
+    embed.set_image(url="https://memegenerator.net/img/instances/72390221/were-all-alone-theres-no-one-here.jpg")
+    await ctx.send(embed=embed)
+  else:
+    message=""
+    for p in players[ctx.guild.id]:
+      message = message + f"{p}\n"
+    embed=discord.Embed(title="افراد حاضر", description=f"این عزیزان الان تو گیمن :smiley:\n{message}", color=0x00ff00)
+    embed.set_image(url="https://www.memecreator.org/static/images/memes/5054822.jpg")
+    await ctx.send(embed=embed)
+
+@bot.command()
+async def setup(ctx):
+  if not ctx.guild.id in questions:
+    questions[ctx.guild.id]=[]
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   if question_pack.status_code == 404:
     requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
     question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   elif question_pack.status_code == 456:
     embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
+    embed.set_image(url="https://devforum.roblox.com/uploads/default/original/4X/d/8/8/d88050147f95355b41b1b842b36d7559606385db.png")
     await ctx.send(embed=embed)
     return 0
-  await ctx.send("بگو ببینم کیا بازی می کنن؟ :thinking: (هرکدوم رو تو یه پیام جدا منشن کن وقتی هم تموم شدن یه پیام بفرست بنویس کافیه)")
-  
-  peaples=[ctx.message.author.mention]
-  pmsg = await ctx.send(f"افرادی که بازی می کنن:\n{peaples[0]}")
-  for i in range(1,6):
-    try:
-      msg = await bot.wait_for("message", check=check, timeout=30)
-      if msg.content == "کافیه":
-        break
-      await pmsg.edit(content=pmsg.content+f"\n{msg.content}")
-      peaples.append(msg.content)
-      await msg.delete()
-    except asyncio.TimeoutError:
-        embed=discord.Embed(title="خطا", description="من منتظر جواب توئم :zipper_mouth_face:\nولش کنسل می کنم(برو گمشو بی معرفت :confused: )", color=0xFF0000)
-        await ctx.send(embed=embed)
-        return 0
-
-
-  questions=[]
+  questions[ctx.guild.id].append(question_pack.json()["ok"]["title"])
   i=1
-  for z in range(5):
-    questions.append(question_pack.json()['ok'][f"{i}"])
+  for question_number in range(5):
+    questions[ctx.guild.id].append(question_pack.json()['ok'][f"{i}"])
     i+=1
-  embed=discord.Embed(title="نام پک:", description=question_pack.json()['ok']["title"], color=0x00ff00)
+  
+
+@bot.command()
+async def start(ctx):
+  def check(msg):
+        return msg.channel == ctx.channel and msg.author == ctx.author
+  def check_answer(msg):
+    return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
+
+    
+  
+  embed=discord.Embed(title="نام پک:", description=questions[ctx.guild.id][0], color=0x00ff00)
+  embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
-  j=1
+  question_number=1
   for q in questions:
-    if j == 6:
+    if question_number == 6:
       break
     for i in range(5):
-      embed=discord.Embed(title=f"سوال {j}:", description=question_pack.json()['ok'][f"{j}"], color=0x00ff00)
+      embed=discord.Embed(title=f"سوال {question_number}:", description=questions[ctx.guild.id][question_number], color=0x00ff00)
       await ctx.send(embed=embed)
-      j+=1
-      for p in peaples:
+      question_number+=1
+      for p in players[ctx.guild.id]:
         await ctx.send(f"{p} پاسخگو باش :hugging:")
         try:
           msg = await bot.wait_for("message", check=check_answer, timeout=30)
@@ -145,9 +184,11 @@ async def start(ctx):
         except asyncio.TimeoutError:
           embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
           await ctx.send(embed=embed)
-        
-  await ctx.send("عه دیگه سوال نیست:sweat_smile:\nبه پایان رسید این دفتر ولی ضایع شدن ها همچنان باقیست... :upside_down_face:")
-
+  for i in range(5):
+    del questions[ctx.guild.id][i]
+  embed=discord.Embed(title="واینک بنگرید! پایان بازی!", description="همانا دکتر استرنج فقید گفت: از 14،000،605 احتمال تنها در یک احتمال ما این بازی را ترک خواهیم کرد... :upside_down_face:", color=0x00ff00)
+  embed.set_image(url="https://i.imgflip.com/5jw7uz.jpg")
+  await ctx.send(embed=embed)
 
 
 
