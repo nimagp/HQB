@@ -28,7 +28,7 @@ admins=["SMM#9107","Nima Ghasemi#9847"]
 @bot.command()
 async def bot_is_online(ctx):
   if str(ctx.message.author) in admins:
-    channel = bot.get_channel(870624299877277716)
+    channel = bot.get_channel(877152831088517130)
     embed=discord.Embed(title=f"ربات روشن شد!", description="هم اکنون میتوانید از ربات استفاده کنید", color=0x00ff00)
     await channel.send(embed=embed)
     embed=discord.Embed(title="انجام شد", description="همگان دانند وضعیت مرا :)", color=0x00ff00)
@@ -93,7 +93,7 @@ async def start(ctx):
   def check(msg):
         return msg.channel == ctx.channel and msg.author == ctx.author
   def check_answer(msg):
-    return msg.channel == ctx.channel and msg.author.mention == now_peaple
+    return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   if question_pack.status_code == 404:
     requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
@@ -103,7 +103,7 @@ async def start(ctx):
     await ctx.send(embed=embed)
     return 0
   await ctx.send("بگو ببینم کیا بازی می کنن؟ :thinking: (هرکدوم رو تو یه پیام جدا منشن کن وقتی هم تموم شدن یه پیام بفرست بنویس کافیه)")
-  global now_peaple
+  
   peaples=[ctx.message.author.mention]
   pmsg = await ctx.send(f"افرادی که بازی می کنن:\n{peaples[0]}")
   for i in range(1,6):
@@ -129,12 +129,13 @@ async def start(ctx):
   await ctx.send(embed=embed)
   j=1
   for q in questions:
+    if j == 6:
+      break
     for i in range(5):
       embed=discord.Embed(title=f"سوال {j}:", description=question_pack.json()['ok'][f"{j}"], color=0x00ff00)
       await ctx.send(embed=embed)
       j+=1
       for p in peaples:
-        now_peaple=p
         await ctx.send(f"{p} پاسخگو باش :hugging:")
         try:
           msg = await bot.wait_for("message", check=check_answer, timeout=30)
