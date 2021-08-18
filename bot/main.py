@@ -18,6 +18,10 @@ help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",descr
 :fire::question:`ping` : دریافت میزان تاخیر ربات \n========
 :fire::question:`start` : آغاز گیم \n========
 :fire::question:`pack` : پیشنهاد پک سوال  \n========
+:fire::question:'join' : اضافه شدن به بازی \n========
+:fire::question:'leave' : ترک بازی \n========
+:fire::question:'setup' : ستاپ(تنظیم) بازی(باید قبل شروع بازی این کار را انجام دهید) \n========
+
 """, color=0xffffff)
 #template: :fire::question:`command` : توضیحات \n========
 
@@ -112,7 +116,7 @@ async def leave(ctx):
     embed.set_image(url="https://excitedcats.com/wp-content/uploads/2021/01/cat-cute.png")
     await ctx.send(embed=embed)
   except:
-    embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای لیو بدی؟ :neutral_face:", color=0xFF0000)
+    embed=discord.Embed(title="خطا!", description="تو توی بازی نیستی چجوری می خوای لیو بدی؟ :neutral_face:", color=0xFF0000)
     embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
     await ctx.send(embed=embed)
 @bot.command()
@@ -141,7 +145,7 @@ async def setup(ctx):
   if not ctx.guild.id in questions:
     questions[ctx.guild.id]=[]
   if not ctx.guild.id in players or not ctx.message.author.mention in players[ctx.guild.id]:
-    embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای ستاپ کنی؟ :neutral_face:", color=0xFF0000)
+    embed=discord.Embed(title="خطا!", description="تو توی بازی نیستی چجوری می خوای ستاپ کنی؟ :neutral_face:", color=0xFF0000)
     embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
     await ctx.send(embed=embed)
     return
