@@ -155,7 +155,9 @@ async def setup(ctx):
     embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
     await ctx.send(embed=embed)
     return
-  if questions[ctx.guild.id][0]:
+  try:
+    questions[ctx.guild.id][0]:
+  except:
     embed=discord.Embed(title="خطا", description=":neutral_face: بازی قبلا ستاپ شده", color=0xFF0000)
     embed.set_image(url="https://i.redd.it/ovmgcxcmu5u61.jpg")
     await ctx.send(embed=embed)
@@ -186,18 +188,20 @@ async def start(ctx):
   def check_answer(msg):
     return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
 
-  if questions[ctx.guild.id][6]:
-    embed=discord.Embed(title="خطا", description="بازی در حال انجامه نمی تونی الان استارت کنی وایسا دست بعد :smile:", color=0xFF0000)
-    embed.set_image(url="https://i.pinimg.com/originals/9b/48/f3/9b48f3aaf5e6c52e2a10d4f7ae3d38f6.gif")
-    await ctx.send(embed=embed)
-    return
-  questions[ctx.guild.id].append("game started")
   if not ctx.guild.id in questions or not questions[ctx.guild.id]:
     embed=discord.Embed(title="خطا!", description="ستاپ کنید اول :sweat_smile:", color=0xFF0000)
     embed.set_image(url="https://c.tenor.com/4RtWwdT6hnQAAAAC/homer-simpson-poker-face.gif")
     await ctx.send(embed=embed)
     return
-  embed=discord.Embed(title="", description=f'نام پک:\n{questions[ctx.guild.id][0]}', color=0x00ff00)
+  try:
+    questions[ctx.guild.id][6]
+  except:
+    embed=discord.Embed(title="خطا", description="بازی در حال انجامه نمی تونی الان استارت کنی وایسا دست بعد :smile:", color=0xFF0000)
+    embed.set_image(url="https://i.pinimg.com/originals/9b/48/f3/9b48f3aaf5e6c52e2a10d4f7ae3d38f6.gif")
+    await ctx.send(embed=embed)
+    return
+  questions[ctx.guild.id].append("game started")
+  embed=discord.Embed(title="بنگرید ای فرزندان آراگورن! بازی از اینجا شروع می شود...", description=f'نام پک:\n{questions[ctx.guild.id][0]}', color=0x00ff00)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
   await asyncio.sleep(5)
