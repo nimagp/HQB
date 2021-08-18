@@ -156,11 +156,13 @@ async def setup(ctx):
     await ctx.send(embed=embed)
     return
   try:
-    questions[ctx.guild.id][0]:
-  except:
+    questions[ctx.guild.id][5]
     embed=discord.Embed(title="خطا", description=":neutral_face: بازی قبلا ستاپ شده", color=0xFF0000)
     embed.set_image(url="https://i.redd.it/ovmgcxcmu5u61.jpg")
     await ctx.send(embed=embed)
+    return
+  except:
+    pass
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   if question_pack.status_code == 404:
     requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
@@ -195,11 +197,12 @@ async def start(ctx):
     return
   try:
     questions[ctx.guild.id][6]
-  except:
     embed=discord.Embed(title="خطا", description="بازی در حال انجامه نمی تونی الان استارت کنی وایسا دست بعد :smile:", color=0xFF0000)
     embed.set_image(url="https://i.pinimg.com/originals/9b/48/f3/9b48f3aaf5e6c52e2a10d4f7ae3d38f6.gif")
     await ctx.send(embed=embed)
     return
+  except:
+    pass
   questions[ctx.guild.id].append("game started")
   embed=discord.Embed(title="بنگرید ای فرزندان آراگورن! بازی از اینجا شروع می شود...", description=f'نام پک:\n{questions[ctx.guild.id][0]}', color=0x00ff00)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
@@ -231,6 +234,7 @@ async def start(ctx):
   questions[ctx.guild.id].clear()
   embed=discord.Embed(title="واینک بنگرید! پایان بازی!", description="همانا دکتر استرنج فقید گفت: از 14،000،605 احتمال تنها در یک احتمال ما این بازی را ترک خواهیم کرد... :upside_down_face:", color=0x00ff00)
   embed.set_image(url="https://i.imgflip.com/5jw7uz.jpg")
+  await asyncio.sleep(5)
   await ctx.send(embed=embed)
 
 
