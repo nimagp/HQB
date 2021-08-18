@@ -196,7 +196,7 @@ async def start(ctx):
       for p in players[ctx.guild.id]:
         await ctx.send(f"{p} پاسخگو باش :hugging:")
         try:
-          msg = await bot.wait_for("message", check=check_answer, timeout=30)
+          msg = await bot.wait_for("message", check=check_answer, timeout=60)
           embed = discord.Embed(title="پاسخ آمد!", description=f"جواب {p} اینه :relaxed::\n{msg.content}", color=0x00ff00)
           await ctx.send(embed=embed)
           await msg.delete()
