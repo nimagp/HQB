@@ -18,9 +18,9 @@ help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",descr
 :fire::question:`ping` : دریافت میزان تاخیر ربات \n========
 :fire::question:`start` : آغاز گیم \n========
 :fire::question:`pack` : پیشنهاد پک سوال  \n========
-:fire::question:'join' : اضافه شدن به بازی \n========
-:fire::question:'leave' : ترک بازی \n========
-:fire::question:'setup' : ستاپ(تنظیم) بازی(باید قبل شروع بازی این کار را انجام دهید) \n========
+:fire::question:`join` : اضافه شدن به بازی \n========
+:fire::question:`leave` : ترک بازی \n========
+:fire::question:`setup` : ستاپ(تنظیم) بازی(باید قبل شروع بازی این کار را انجام دهید) \n========
 
 """, color=0xffffff)
 #template: :fire::question:`command` : توضیحات \n========
