@@ -199,7 +199,7 @@ async def start(ctx):
         except asyncio.TimeoutError:
           embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
           await ctx.send(embed=embed)
-  for i in range(5):
+  for i in range(6):
     del questions[ctx.guild.id][i]
   embed=discord.Embed(title="واینک بنگرید! پایان بازی!", description="همانا دکتر استرنج فقید گفت: از 14،000،605 احتمال تنها در یک احتمال ما این بازی را ترک خواهیم کرد... :upside_down_face:", color=0x00ff00)
   embed.set_image(url="https://i.imgflip.com/5jw7uz.jpg")
