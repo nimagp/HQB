@@ -170,7 +170,7 @@ async def start(ctx):
     return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
 
     
-  if not questions[ctx.guild.id]:
+  if not questions[ctx.guild.id] or not ctx.guild.id in questions:
     embed=discord.Embed(title="خطا!", description="ستاپ کنید اول :sweat_smile:", color=0xFF0000)
     embed.set_image(url="https://c.tenor.com/4RtWwdT6hnQAAAAC/homer-simpson-poker-face.gif")
     await ctx.send(embed=embed)
