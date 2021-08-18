@@ -183,9 +183,9 @@ async def start(ctx):
     await ctx.send(embed=embed)
     return
   embed=discord.Embed(title="نام پک:", description=questions[ctx.guild.id][0], color=0x00ff00)
-  await asyncio.sleep(5)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
+  await asyncio.sleep(5)
   question_number=1
   for q in questions:
     if question_number == 6:
