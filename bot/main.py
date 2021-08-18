@@ -13,7 +13,7 @@ help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",descr
 ***تمامی دستورات با ***`.hqb`*** آغاز می شوند***
 
 :fire::question:`help` : نمایش راهنما \n========
-:fire::question:`question` : پیشنهاد سوال \n========
+:fire::question:`question` : پیشنهاد سوال  \n========
 :fire::question:`bug` : گزارش باگ \n========
 :fire::question:`ping` : دریافت میزان تاخیر ربات \n========
 :fire::question:`start` : آغاز گیم \n========
@@ -30,7 +30,7 @@ admins=["SMM#9107","Nima Ghasemi#9847"]
 @bot.command()
 async def bot_is_online(ctx):
   if str(ctx.message.author) in admins:
-    channel = bot.get_channel(877152831088517130)
+    channel = bot.get_channel(870624299877277716)
     embed=discord.Embed(title=f"ربات روشن شد!", description="هم اکنون میتوانید از ربات استفاده کنید", color=0x00ff00)
     await channel.send(embed=embed)
     embed=discord.Embed(title="انجام شد", description="همگان دانند وضعیت مرا :)", color=0x00ff00)
@@ -58,14 +58,14 @@ async def ping(ctx):
 
 @bot.command(name="bug", help="گزارش باگ به ادمین ها")
 async def bug(ctx, *, message):
-    channel = bot.get_channel(876910072402423910)
+    channel = bot.get_channel(870551794273644565)
     embed=discord.Embed(title=f"ّباگ جدید از {ctx.message.author.name}", description=message, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("باگ گزارش شد")
 
 @bot.command(help="پیشنهاد سوال")
 async def question(ctx, *, question):
-    channel = bot.get_channel(876910149363716176)
+    channel = bot.get_channel(870559120476999690)
     embed = discord.Embed(title=f"سوال جدید از {ctx.message.author.name}", description=question, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("سوال پیشنهادی شما برای بررسی ارسال شد")
@@ -86,7 +86,7 @@ async def pack(ctx):
           embed=discord.Embed(title="خطا", description="داااااداش جواب بده تو می خواستی پک پیشنهاد بدی :(", color=0xFF0000)
           await ctx.send(embed=embed)
           return 0
-    channel=bot.get_channel(876910149363716176)    
+    channel=bot.get_channel(870559120476999690)    
     embed = discord.Embed(title=f"پک سوال جدید از {ctx.message.author.name}", description=packmsg.content, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("پک سوال پیشنهادی شما ارسال شد")
