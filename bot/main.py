@@ -140,7 +140,7 @@ async def party(ctx):
 async def setup(ctx):
   if not ctx.guild.id in questions:
     questions[ctx.guild.id]=[]
-  if not ctx.guild.id in players or ctx.message.author.mention in players[ctx.guild.id]:
+  if not ctx.guild.id in players or not ctx.message.author.mention in players[ctx.guild.id]:
     embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای ستاپ کنی؟ :neutral_face:", color=0xFF0000)
     embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
     await ctx.send(embed=embed)
@@ -177,6 +177,7 @@ async def start(ctx):
     embed=discord.Embed(title="خطا!", description="ستاپ کنید اول :sweat_smile:", color=0xFF0000)
     embed.set_image(url="https://c.tenor.com/4RtWwdT6hnQAAAAC/homer-simpson-poker-face.gif")
     await ctx.send(embed=embed)
+    return
   embed=discord.Embed(title="نام پک:", description=questions[ctx.guild.id][0], color=0x00ff00)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
