@@ -138,6 +138,10 @@ async def party(ctx):
 async def setup(ctx):
   if not ctx.guild.id in questions:
     questions[ctx.guild.id]=[]
+  if not ctx.message.author.mention in players[ctx.guild.id]:
+    embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای ستاپ کنی؟ :neutral_face:", color=0xFF0000)
+    embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
+    await ctx.send(embed=embed)
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   if question_pack.status_code == 404:
     requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
@@ -152,6 +156,10 @@ async def setup(ctx):
   for question_number in range(5):
     questions[ctx.guild.id].append(question_pack.json()['ok'][f"{i}"])
     i+=1
+    embed=discord.Embed(title="ستاپ تموم وشد :smiley:", color=0x00ff00)
+    embed.set_image(url="https://i.stack.imgur.com/nDAux.png")
+    await ctx.send(embed=embed)
+
   
 
 @bot.command()
@@ -162,7 +170,10 @@ async def start(ctx):
     return msg.channel == ctx.channel and msg.author.mention == p.replace("!","")
 
     
-  
+  if not questions[ctx.guild.id]:
+    embed=discord.Embed(title="خطا!", description="ستاپ کنید اول :sweat_smile:", color=0xFF0000)
+    embed.set_image(url="https://c.tenor.com/4RtWwdT6hnQAAAAC/homer-simpson-poker-face.gif")
+    await ctx.send(embed=embed)
   embed=discord.Embed(title="نام پک:", description=questions[ctx.guild.id][0], color=0x00ff00)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
