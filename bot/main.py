@@ -140,7 +140,7 @@ async def party(ctx):
 async def setup(ctx):
   if not ctx.guild.id in questions:
     questions[ctx.guild.id]=[]
-  if not ctx.message.author.mention in players[ctx.guild.id]:
+  if not ctx.guild.id in players or ctx.message.author.mention in players[ctx.guild.id]:
     embed=discord.Embed(title="خطا!", description="تو توی پارتی نیستی چجوری می خوای ستاپ کنی؟ :neutral_face:", color=0xFF0000)
     embed.set_image(url="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTyGjuwn4loVQsviIQw8tmRe8KrgflJxqKtsDmdGqEdSxIQQDh98F_I3C21BTAxSs7STFM&usqp=CAU")
     await ctx.send(embed=embed)
