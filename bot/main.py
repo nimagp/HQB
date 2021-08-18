@@ -63,7 +63,7 @@ async def ping(ctx):
 @bot.command(name="bug", help="گزارش باگ به ادمین ها")
 async def bug(ctx, *, message):
     channel = bot.get_channel(870551794273644565)
-    embed=discord.Embed(title=f"ّباگ جدید از {ctx.message.author.name}", description=message, color=0x00ff00)
+    embed=discord.Embed(title=f"باگ جدید از {ctx.message.author.name}", description=message, color=0x00ff00)
     await channel.send(embed=embed)
     await ctx.reply("باگ گزارش شد")
 
@@ -99,10 +99,16 @@ async def pack(ctx):
 @bot.command()
 async def join(ctx):
   #define server party if there not is
-  if not ctx.guild.id in players:
+  if not ctx.guild.id in players :
     players[ctx.guild.id]=[]
+  #check if player in party
+  if ctx.message.author.mention in players[ctx.guild.id]:
+    embed=discord.Embed(title="خطا", description="الان تو بازی هستی :neutral_face: میخوای دوباره جوین بدی؟", color=0xFF0000)
+    embed.set_image(url="https://pbs.twimg.com/media/EEzQfuTXkAALUWZ.jpg")
+    await ctx.send(embed=embed)
+    return
   #add player to party
-  players[ctx.guild.id].append(ctx.message.author.mention)
+  players[ctx.guild.id].append(ctx.message.author.mention) 
   #send successful
   embed=discord.Embed(title="خوش اومدی", description="با امید عدم به هم خوردن رفاقت شما :upside_down_face:", color=0x00ff00)
   embed.set_image(url="https://i.ytimg.com/vi/pNNN31IB1wE/maxresdefault.jpg")
@@ -182,28 +188,33 @@ async def start(ctx):
     embed.set_image(url="https://c.tenor.com/4RtWwdT6hnQAAAAC/homer-simpson-poker-face.gif")
     await ctx.send(embed=embed)
     return
-  embed=discord.Embed(title="نام پک:", description=questions[ctx.guild.id][0], color=0x00ff00)
+  embed=discord.Embed(title="", description=f'نام پک:\n{questions[ctx.guild.id][0]}', color=0x00ff00)
   embed.set_image(url="https://thumbs.dreamstime.com/b/game-starting-screen-saying-get-ready-game-starting-screen-saying-get-ready-motion-dynamic-animated-background-techno-style-169494139.jpg")
   await ctx.send(embed=embed)
   await asyncio.sleep(5)
   question_number=1
+
+
   for q in questions:
     if question_number == 6:
       break
+      
     for i in range(5):
       embed=discord.Embed(title=f"سوال {question_number}:", description=questions[ctx.guild.id][question_number], color=0x00ff00)
       await ctx.send(embed=embed)
       question_number+=1
       for p in players[ctx.guild.id]:
-        await ctx.send(f"{p} پاسخگو باش :hugging:")
+        pasokhgo_msg = await ctx.send(f"{p} پاسخگو باش :hugging:")
         try:
           msg = await bot.wait_for("message", check=check_answer, timeout=60)
-          embed = discord.Embed(title="پاسخ آمد!", description=f"جواب {p} اینه :relaxed::\n{msg.content}", color=0x00ff00)
+          embed = discord.Embed(title=f"پاسخ!", description=f"جواب {p} :relaxed::\n{msg.content}", color=0x00ff00)
           await ctx.send(embed=embed)
-          await msg.delete()
+          await pasokhgo_msg.delete()
         except asyncio.TimeoutError:
           embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
           await ctx.send(embed=embed)
+
+
   questions[ctx.guild.id].clear()
   embed=discord.Embed(title="واینک بنگرید! پایان بازی!", description="همانا دکتر استرنج فقید گفت: از 14،000،605 احتمال تنها در یک احتمال ما این بازی را ترک خواهیم کرد... :upside_down_face:", color=0x00ff00)
   embed.set_image(url="https://i.imgflip.com/5jw7uz.jpg")
