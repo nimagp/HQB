@@ -122,10 +122,12 @@ async def party(ctx):
     embed=discord.Embed(title="هیچکس نیست", description="مانده ایم تنهای تنها:", color=0xFF0000)
     embed.set_image(url="https://memegenerator.net/img/instances/72390221/were-all-alone-theres-no-one-here.jpg")
     await ctx.send(embed=embed)
+    return
   if not players[ctx.guild.id]:
     embed=discord.Embed(title="هیچکس نیست", description="مانده ایم تنهای تنها:", color=0xFF0000)
     embed.set_image(url="https://memegenerator.net/img/instances/72390221/were-all-alone-theres-no-one-here.jpg")
     await ctx.send(embed=embed)
+    return
   else:
     message=""
     for p in players[ctx.guild.id]:
@@ -156,9 +158,9 @@ async def setup(ctx):
   for question_number in range(5):
     questions[ctx.guild.id].append(question_pack.json()['ok'][f"{i}"])
     i+=1
-    embed=discord.Embed(title="ستاپ تموم وشد :smiley:", color=0x00ff00)
-    embed.set_image(url="https://i.stack.imgur.com/nDAux.png")
-    await ctx.send(embed=embed)
+  embed=discord.Embed(title="ستاپ تموم وشد :smiley:", color=0x00ff00)
+  embed.set_image(url="https://i.stack.imgur.com/nDAux.png")
+  await ctx.send(embed=embed)
 
   
 
