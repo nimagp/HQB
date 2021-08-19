@@ -220,12 +220,13 @@ async def start(ctx):
       await ctx.send(embed=embed)
       question_number+=1
       for p in players[ctx.guild.id]:
-        pasokhgo_msg = await ctx.send(f"{p} پاسخگو باش :hugging:")
+        question_msg = await ctx.send(f"{p} پاسخگو باش :hugging:")
         try:
           msg = await bot.wait_for("message", check=check_answer, timeout=60)
           embed = discord.Embed(title=f"پاسخ!", description=f"جواب {p} :relaxed::\n{msg.content}", color=0x00ff00)
+          await msg.delete()
           await ctx.send(embed=embed)
-          await pasokhgo_msg.delete()
+          await question_msg.delete()
         except asyncio.TimeoutError:
           embed=discord.Embed(title="معرفت گوهر گرانی است به هرکس ندهند...", description="یک عدد بیشعور جواب نداد بریم بعدی :neutral_face:", color=0xFF0000)
           await ctx.send(embed=embed)
