@@ -169,7 +169,7 @@ async def setup(ctx):
     embed.set_image(url="https://devforum.roblox.com/uploads/default/original/4X/d/8/8/d88050147f95355b41b1b842b36d7559606385db.png")
     await ctx.send(embed=embed)
     return 0
-  questions[ctx.guild.id].append(question_pack.json()["title"])
+  questions[ctx.guild.id].append(question_pack.json()["Pack"])
   for question in question_pack.json()["questions"]:
     questions[ctx.guild.id].append(question)
   embed=discord.Embed(title="ستاپ تموم وشد :smiley:", color=0x00ff00)
