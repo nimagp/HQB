@@ -170,7 +170,7 @@ async def setup(ctx):
     await ctx.send(embed=embed)
     return 0
   questions[ctx.guild.id].append(question_pack.json()["Pack"])
-  for question in question_pack.json()["questions"]:
+  for question in question_pack.json()["Questions"]:
     questions[ctx.guild.id].append(question)
   embed=discord.Embed(title="ستاپ تموم وشد :smiley:", color=0x00ff00)
   embed.set_image(url="https://i.stack.imgur.com/nDAux.png")
