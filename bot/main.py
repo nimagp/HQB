@@ -21,6 +21,7 @@ help_embed = discord.Embed(title="راهنمای سوالات جهنمی:",descr
 :fire::question:`join` : اضافه شدن به بازی \n========
 :fire::question:`leave` : ترک بازی \n========
 :fire::question:`setup` : ستاپ(تنظیم) بازی(باید قبل شروع بازی این کار را انجام دهید) \n========
+:fire::question:`party` : لیست افرادی که بازی می کنند \n========
 
 """, color=0xffffff)
 #template: :fire::question:`command` : توضیحات \n========
