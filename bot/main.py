@@ -165,6 +165,9 @@ async def setup(ctx):
     pass
   question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
   if question_pack.status_code == 404:
+    requests.post(url="https://nimgp.pythonanywhere.com/api/v1/register_server/",data={"server":ctx.guild.id,"server_name":ctx.guild.name})
+    question_pack=requests.post(url="https://nimgp.pythonanywhere.com/api/v1/get_pack_by_server/",data={"server":ctx.guild.id})
+  elif question_pack.status_code == 456:
     embed=discord.Embed(title="خطا", description="عزیزان آروممممم آروم :sweat_smile:\nفعلا پکی واسه شما نداریم وایسید پک جدید بیاد :relaxed:", color=0xFF0000)
     embed.set_image(url="https://devforum.roblox.com/uploads/default/original/4X/d/8/8/d88050147f95355b41b1b842b36d7559606385db.png")
     await ctx.send(embed=embed)
